@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->json('alternate_names');
             $table->string('species');
             $table->string('gender');
