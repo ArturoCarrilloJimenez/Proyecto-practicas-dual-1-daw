@@ -9,7 +9,7 @@ use App\Models\student;
 class staffcontroller extends Controller
 {
     public function getStaff() {
-        return response()->json(student::where('hogwartsStaff',true),200);
+        return response()->json(student::where('hogwartsStaff',true)->paginate(10),200);
     }
     
     public function getStaffxid($id) {

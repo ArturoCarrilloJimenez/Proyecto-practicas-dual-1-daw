@@ -9,7 +9,7 @@ use App\Models\student;
 class studentscontroller extends Controller
 {
     public function getStudent() {
-        return response()->json(student::where('hogwartsStudent',true),200);
+        return response()->json(student::where('hogwartsStudent',true)->paginate(10),200);
     }
     
     public function getStudentxid($id) {
