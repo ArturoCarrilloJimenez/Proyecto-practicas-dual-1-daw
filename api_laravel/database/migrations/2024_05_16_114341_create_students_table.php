@@ -12,26 +12,26 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('students', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('name');
             $table->json('alternate_names');
             $table->string('species');
             $table->string('gender');
-            $table->string('house');
-            $table->string('date_of_birth');
-            $table->integer('year_of_birth');
+            $table->string('house')->nullable();
+            $table->string('dateOfBirth')->nullable();
+            $table->integer('yearOfBirth')->nullable();
             $table->boolean('wizard');
-            $table->string('ancestry');
-            $table->string('eye_colour');
-            $table->string('hair_colour');
+            $table->string('ancestry')->nullable();
+            $table->string('eyeColour')->nullable();
+            $table->string('hairColour')->nullable();
             $table->json('wand');
-            $table->string('patronus');
-            $table->boolean('hogwarts_student');
-            $table->boolean('hogwarts_staff');
-            $table->string('actor');
+            $table->string('patronus')->nullable();
+            $table->boolean('hogwartsStudent');
+            $table->boolean('hogwartsStaff');
+            $table->string('actor')->nullable();
             $table->json('alternate_actors');
             $table->boolean('alive');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
