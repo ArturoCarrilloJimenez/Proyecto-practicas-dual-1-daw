@@ -20,12 +20,12 @@
                     </NuxtLink>
                     <NuxtLink
                         class="transition duration-300 ease-in-out transform hover:scale-105 hover:text-yellow-400"
-                        to="/profesores">
+                        to="/staff">
                         Profesores
                     </NuxtLink>
                     <NuxtLink
                         class="transition duration-300 ease-in-out transform hover:scale-105 hover:text-yellow-400"
-                        to="/casas">
+                        to="/house">
                         Casas
                     </NuxtLink>
                 </ul>

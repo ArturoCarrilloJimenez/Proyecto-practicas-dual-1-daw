@@ -11,7 +11,7 @@
                 Explora el mágico mundo de Harry Potter gestionando estudiantes, profesores y casas de Hogwarts.
             </p>
             <img src="https://cdn.sortiraparis.com/images/80/66131/855789-harry-potter-hogwarts-legacy-se-devoile-dans-sa-bande-annonce-de-lancement.jpg" alt="Hogwarts" class="mx-auto mb-6">
-            <NuxtLink class="bg-blue-900 text-white px-4 py-2 rounded hover:bg-blue-700" to="/student">Comienza la aventura</NuxtLink>
+            <NuxtLink class="bg-blue-900 text-white px-4 py-2 rounded hover:bg-blue-700" to="/student">Explora el mundo de Hogwarts</NuxtLink>
         </section>
     </main>
 </template>

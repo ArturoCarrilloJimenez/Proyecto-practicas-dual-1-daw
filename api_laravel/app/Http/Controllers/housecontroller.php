@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class housecontroller extends Controller
 {
     public function getHouse() {
-        return response()->json(house::paginate(10),200);
+        return response()->json(house::paginate(12),200);
     }
     
     public function getHousexid($id) {
