@@ -42,13 +42,13 @@ Route::put('updateStudent/id={id}','App\Http\Controllers\staffcontroller@updateS
 // Metodos de casa
 Route::get('houses', 'App\Http\Controllers\housecontroller@getHouse');
 
-Route::get('student/id={id}','App\Http\Controllers\housecontroller@getHousexid');
+Route::get('house/id={id}','App\Http\Controllers\housecontroller@getHousexid');
 
-Route::post('addStudent','App\Http\Controllers\housecontroller@insertHouse');
+Route::post('addHouse','App\Http\Controllers\housecontroller@insertHouse');
 
-Route::put('updateStudent/id={id}','App\Http\Controllers\housecontroller@updateHouse');
+Route::put('updateHouse/id={id}','App\Http\Controllers\housecontroller@updateHouse');
 
-Route::delete('deletePerson/id={id}','App\Http\Controllers\housecontroller@deletehouse');
+Route::delete('deleteHouse/id={id}','App\Http\Controllers\housecontroller@deletehouse');
 
 // Eliminar persona (estudiante o profesor)
 Route::delete('deletePerson/id={id}','App\Http\Controllers\studentscontroller@deletePerson');

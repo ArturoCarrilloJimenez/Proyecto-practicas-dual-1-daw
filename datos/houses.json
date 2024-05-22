@@ -1,0 +1,22 @@
+[
+    {
+        "name": "Gryffindor",
+        "puntos": "52",
+        "image": "https://i.pinimg.com/474x/d1/e8/53/d1e853a51cc4f6b25a9f96914e04b992.jpg"
+    },
+    {
+        "name": "Hufflepuff",
+        "puntos": "24",
+        "image": "https://i.pinimg.com/736x/39/80/92/398092891a39c67b1241734c5fea6843.jpg"
+    },
+    {
+        "name": "Ravenclaw",
+        "puntos": "47",
+        "image": "https://vectorseek.com/wp-content/uploads/2023/08/Ravenclaw-Logo-Vector.svg-.png"
+    },
+    {
+        "name": "Slytherin",
+        "puntos": "7",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/3/34/Slytherin.png"
+    }
+]

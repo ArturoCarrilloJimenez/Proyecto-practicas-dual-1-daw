@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class house extends Model
 {
     protected $fillable = [
-        'id','name','puntos'
+        'id','name','puntos','image'
     ];
 }

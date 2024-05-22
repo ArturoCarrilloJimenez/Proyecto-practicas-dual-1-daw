@@ -12,7 +12,7 @@ class student extends Model
     protected $primaryKey = 'id'; // Indica que la columna de la clave primaria es 'id'
     
     protected $fillable = [
-        'id', 'name', 'alternate_names', 'species', 'gender', 'house',
+        'id', 'name', 'alternate_names', 'species', 'gender', 'houseId',
         'dateOfBirth', 'yearOfBirth', 'wizard', 'ancestry', 'eyeColour',
         'hairColour', 'wand', 'patronus', 'hogwartsStudent', 'hogwartsStaff',
         'actor', 'alternate_actors', 'alive', 'image'

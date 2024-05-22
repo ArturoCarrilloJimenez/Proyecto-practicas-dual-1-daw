@@ -1,6 +1,7 @@
 <template>
     <AppNav />
 
-    <slot />
+    <slot class="min-h-screen bg-gray-100"/>
     
+    <AppFooter />
 </template>

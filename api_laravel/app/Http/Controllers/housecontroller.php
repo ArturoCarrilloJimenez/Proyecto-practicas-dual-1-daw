@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\house;
+use Ramsey\Uuid\Uuid;
 use Illuminate\Http\Request;
 
 class housecontroller extends Controller
@@ -21,6 +22,8 @@ class housecontroller extends Controller
 
     // Funcion que inserta una sola casa
     public function insertHouse(Request $request) {
+        $uuid = Uuid::uuid4()->toString(); // Genera la clave uuid que es lo mismo que el id
+        $request['id'] = $uuid;  // Asumiendo que el modelo Student tiene un atributo 'id' donde se guarda el UUID
         $house = house::create($request->all());
         return response($house, 200);
     }
@@ -29,6 +32,8 @@ class housecontroller extends Controller
     public function portHouse(Request $request) {
         $house = [];
         foreach ($request->all() as $data) {
+            $uuid = Uuid::uuid4()->toString(); // Genera la clave uuid que es lo mismo que el id
+            $data['id'] = $uuid;  // Asumiendo que el modelo Student tiene un atributo 'id' donde se guarda el UUID
             $house[] = house::create($data);
         }
         return response()->json($house, 200);

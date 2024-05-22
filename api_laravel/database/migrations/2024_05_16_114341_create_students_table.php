@@ -17,7 +17,7 @@ return new class extends Migration
             $table->json('alternate_names');
             $table->string('species');
             $table->string('gender');
-            $table->string('house')->nullable();
+            $table->uuid('houseId')->nullable();
             $table->string('dateOfBirth')->nullable();
             $table->integer('yearOfBirth')->nullable();
             $table->boolean('wizard');
@@ -33,6 +33,8 @@ return new class extends Migration
             $table->boolean('alive');
             $table->string('image')->nullable();
             $table->timestamps();
+
+            $table->foreign('houseId')->references('id')->on('houses');
         });
     }
 
