@@ -17,7 +17,7 @@ class housecontroller extends Controller
         if (!$categoria) {
             return response()->json(['Message'=>'Registro no encontrado'],404);
         }
-        return response()->json(house::find($id),200);
+        return response()->json(house::select('students.name as student', 'students.image as studentImg','students.id as studentId', 'houses.*')->join('students', 'students.houseId', '=', 'houses.id')->where('houses.id', $id)->paginate(12),200);
     }
 
     // Funcion que inserta una sola casa

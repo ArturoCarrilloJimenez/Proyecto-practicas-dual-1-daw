@@ -6,10 +6,12 @@ use Illuminate\Http\Request;
 use Ramsey\Uuid\Uuid;
 use App\Models\student;
 
+use function Laravel\Prompts\select;
+
 class staffcontroller extends Controller
 {
     public function getStaff() {
-        return response()->json(student::where('hogwartsStaff',true)->paginate(12),200);
+        return response()->json(student::select('students.*', 'houses.name as house')->leftJoin('houses', 'students.houseId', '=', 'houses.id')->where('hogwartsStaff',true)->paginate(12),200);
     }
     
     public function getStaffxid($id) {
@@ -17,7 +19,7 @@ class staffcontroller extends Controller
         if (!$categoria) {
             return response()->json(['Message'=>'Registro no encontrado'],404);
         }
-        return response()->json(student::find($id),200);
+        return response()->json(student::select('students.*', 'houses.name as house')->leftJoin('houses', 'students.houseId', '=', 'houses.id')->find($id),200);
     }
 
     // Funcion que inserta un solo estudiante

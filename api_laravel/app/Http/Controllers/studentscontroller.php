@@ -15,11 +15,11 @@ class studentscontroller extends Controller
 
     public function getStudentxid($id)
     {
-        $categoria = student::where('hogwartsStudent', true)->find($id);
-        if (!$categoria) {
+        $student = student::where('hogwartsStudent', true)->find($id);
+        if (!$student) {
             return response()->json(['Message' => 'Registro no encontrado'], 404);
         }
-        return response()->json(student::find($id), 200);
+        return response()->json(student::select('students.*', 'houses.name as house')->leftJoin('houses', 'students.houseId', '=', 'houses.id')->find($id), 200);
     }
 
     // Funcion que inserta un solo estudiante

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import CardStudent from '../../components/CardStudent.vue';
+import CardStudent from './CardStudent.vue';
 import { onMounted, computed } from 'vue';
 import { useGetData } from '#imports';
 import SpinnerCharge from '~/components/SpinnerCharge.vue';
@@ -7,7 +7,7 @@ import SpinnerCharge from '~/components/SpinnerCharge.vue';
 const useGetDataPinia = useGetData();
 
 onMounted(() => {
-    useGetDataPinia.getData('http://127.0.0.1:8000/api/houses');
+    useGetDataPinia.getData('http://127.0.0.1:8000/api/student');
     console.log(useGetDataPinia.data);
 });
 
@@ -26,9 +26,9 @@ const activeNext = computed(() => {
         <section v-else class="text-center">
             <h2 class="text-3xl font-bold mb-10">¡Bienvenidos al apartado de casas!</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 justify-items-center">
-                <div v-for="{ name, image, id } in useGetDataPinia.data?.data" :key="id"
+                <div v-for="{ name, image, house, id } in useGetDataPinia.data?.data" :key="id"
                     class="max-w-sm rounded overflow-hidden shadow-lg">
-                    <CardStudent :name="name" :img="image" house="&nbsp;" :id="id" ruta="house" />
+                    <CardStudent :name="name" :img="image" house="&nbsp;" :id="id" ruta="student />
                 </div>
             </div>
             <PaginateComponent :activeNext="activeNext" :activeBack="activeBack"
