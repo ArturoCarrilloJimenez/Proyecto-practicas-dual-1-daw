@@ -28,6 +28,11 @@
                         to="/house">
                         Casas
                     </NuxtLink>
+                    <NuxtLink
+                        class="transition duration-300 ease-in-out transform hover:scale-105 hover:text-yellow-400"
+                        to="/admin">
+                        Administracion
+                    </NuxtLink>
                 </ul>
             </nav>
         </div>
