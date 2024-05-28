@@ -1,0 +1,751 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Harry Potter",
+        "description": "Esta api se encarga de gestionar el contenido de estudiantes, profesores y casas",
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8000"
+        }
+    ],
+    "paths": {
+        "/api/staff": {
+            "get": {
+                "tags": [
+                    "Staff"
+                ],
+                "summary": "Listado de todos los datos de los profesores.",
+                "operationId": "96c2008ebed27a50d96db6db9ed243d0",
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "current_page": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string",
+                                                        "example": "00df1ced-262e-49d0-87a3-0c12113acec3"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Stebbins"
+                                                    },
+                                                    "alternate_names": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "string"
+                                                        },
+                                                        "example": []
+                                                    },
+                                                    "species": {
+                                                        "type": "string",
+                                                        "example": "human"
+                                                    },
+                                                    "gender": {
+                                                        "type": "string",
+                                                        "example": "male"
+                                                    },
+                                                    "houseId": {
+                                                        "type": "string",
+                                                        "example": "f3393ae9-7234-4451-aa09-d190d069816a"
+                                                    },
+                                                    "dateOfBirth": {
+                                                        "type": "string",
+                                                        "example": null
+                                                    },
+                                                    "yearOfBirth": {
+                                                        "type": "integer",
+                                                        "example": null
+                                                    },
+                                                    "wizard": {
+                                                        "type": "boolean",
+                                                        "example": true
+                                                    },
+                                                    "ancestry": {
+                                                        "type": "string",
+                                                        "example": null
+                                                    },
+                                                    "eyeColour": {
+                                                        "type": "string",
+                                                        "example": null
+                                                    },
+                                                    "hairColour": {
+                                                        "type": "string",
+                                                        "example": null
+                                                    },
+                                                    "wand": {
+                                                        "properties": {
+                                                            "wood": {
+                                                                "type": "string",
+                                                                "example": null
+                                                            },
+                                                            "core": {
+                                                                "type": "string",
+                                                                "example": null
+                                                            },
+                                                            "length": {
+                                                                "type": "string",
+                                                                "example": null
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "patronus": {
+                                                        "type": "string",
+                                                        "example": null
+                                                    },
+                                                    "hogwartsStudent": {
+                                                        "type": "integer",
+                                                        "example": 0
+                                                    },
+                                                    "hogwartsStaff": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "actor": {
+                                                        "type": "string",
+                                                        "example": null
+                                                    },
+                                                    "alternate_actors": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "string"
+                                                        },
+                                                        "example": []
+                                                    },
+                                                    "alive": {
+                                                        "type": "boolean",
+                                                        "example": true
+                                                    },
+                                                    "image": {
+                                                        "type": "string",
+                                                        "example": null
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "example": "2024-05-22T07:25:52.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "example": "2024-05-22T07:25:52.000000Z"
+                                                    },
+                                                    "house": {
+                                                        "type": "string",
+                                                        "example": "Ravenclaw"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "first_page_url": {
+                                            "type": "string",
+                                            "example": "http://127.0.0.1:8000/api/staff?page=1"
+                                        },
+                                        "from": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "last_page": {
+                                            "type": "integer",
+                                            "example": 9
+                                        },
+                                        "last_page_url": {
+                                            "type": "string",
+                                            "example": "http://127.0.0.1:8000/api/staff?page=9"
+                                        },
+                                        "links": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "url": {
+                                                        "type": "string",
+                                                        "example": null
+                                                    },
+                                                    "label": {
+                                                        "type": "string",
+                                                        "example": "&laquo; Previous"
+                                                    },
+                                                    "active": {
+                                                        "type": "boolean",
+                                                        "example": false
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "next_page_url": {
+                                            "type": "string",
+                                            "example": "http://127.0.0.1:8000/api/staff?page=2"
+                                        },
+                                        "path": {
+                                            "type": "string",
+                                            "example": "http://127.0.0.1:8000/api/staff"
+                                        },
+                                        "per_page": {
+                                            "type": "integer",
+                                            "example": 12
+                                        },
+                                        "prev_page_url": {
+                                            "type": "string",
+                                            "example": null
+                                        },
+                                        "to": {
+                                            "type": "integer",
+                                            "example": 12
+                                        },
+                                        "total": {
+                                            "type": "integer",
+                                            "example": 23
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/staff/{id}": {
+            "get": {
+                "tags": [
+                    "Staff"
+                ],
+                "summary": "Obtiene un profesor por su ID",
+                "description": "Retorna los detalles de un estudiante específico de Hogwarts por ID, incluyendo información completa del profesor y la casa a la que pertenece.",
+                "operationId": "f9f7da166a48a03b4fc501441011bd8e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del estudiante",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operación exitosa",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "example": "00df1ced-262e-49d0-87a3-0c12113acec3"
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Stebbins"
+                                        },
+                                        "alternate_names": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "example": []
+                                        },
+                                        "species": {
+                                            "type": "string",
+                                            "example": "human"
+                                        },
+                                        "gender": {
+                                            "type": "string",
+                                            "example": "male"
+                                        },
+                                        "houseId": {
+                                            "type": "string",
+                                            "example": "f3393ae9-7234-4451-aa09-d190d069816a"
+                                        },
+                                        "dateOfBirth": {
+                                            "type": "string",
+                                            "example": null
+                                        },
+                                        "yearOfBirth": {
+                                            "type": "integer",
+                                            "example": null
+                                        },
+                                        "wizard": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "ancestry": {
+                                            "type": "string",
+                                            "example": null
+                                        },
+                                        "eyeColour": {
+                                            "type": "string",
+                                            "example": null
+                                        },
+                                        "hairColour": {
+                                            "type": "string",
+                                            "example": null
+                                        },
+                                        "wand": {
+                                            "properties": {
+                                                "wood": {
+                                                    "type": "string",
+                                                    "example": null
+                                                },
+                                                "core": {
+                                                    "type": "string",
+                                                    "example": null
+                                                },
+                                                "length": {
+                                                    "type": "string",
+                                                    "example": null
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "patronus": {
+                                            "type": "string",
+                                            "example": null
+                                        },
+                                        "hogwartsStudent": {
+                                            "type": "integer",
+                                            "example": 0
+                                        },
+                                        "hogwartsStaff": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "actor": {
+                                            "type": "string",
+                                            "example": null
+                                        },
+                                        "alternate_actors": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "example": []
+                                        },
+                                        "alive": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "image": {
+                                            "type": "string",
+                                            "example": null
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "example": "2024-05-22T07:25:52.000000Z"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "example": "2024-05-22T07:25:52.000000Z"
+                                        },
+                                        "house": {
+                                            "type": "string",
+                                            "example": "Ravenclaw"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Registro no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Message": {
+                                            "type": "string",
+                                            "example": "Registro no encontrado"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/student": {
+            "get": {
+                "tags": [
+                    "Students"
+                ],
+                "summary": "Listado de todos los datos de los estudiantes.",
+                "operationId": "af69e67d4a45f8de80105f2bc15567a8",
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "current_page": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string",
+                                                        "example": "00df1ced-262e-49d0-87a3-0c12113acec3"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Stebbins"
+                                                    },
+                                                    "alternate_names": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "string"
+                                                        },
+                                                        "example": []
+                                                    },
+                                                    "species": {
+                                                        "type": "string",
+                                                        "example": "human"
+                                                    },
+                                                    "gender": {
+                                                        "type": "string",
+                                                        "example": "male"
+                                                    },
+                                                    "houseId": {
+                                                        "type": "string",
+                                                        "example": "f3393ae9-7234-4451-aa09-d190d069816a"
+                                                    },
+                                                    "dateOfBirth": {
+                                                        "type": "string",
+                                                        "example": null
+                                                    },
+                                                    "yearOfBirth": {
+                                                        "type": "integer",
+                                                        "example": null
+                                                    },
+                                                    "wizard": {
+                                                        "type": "boolean",
+                                                        "example": true
+                                                    },
+                                                    "ancestry": {
+                                                        "type": "string",
+                                                        "example": null
+                                                    },
+                                                    "eyeColour": {
+                                                        "type": "string",
+                                                        "example": null
+                                                    },
+                                                    "hairColour": {
+                                                        "type": "string",
+                                                        "example": null
+                                                    },
+                                                    "wand": {
+                                                        "properties": {
+                                                            "wood": {
+                                                                "type": "string",
+                                                                "example": null
+                                                            },
+                                                            "core": {
+                                                                "type": "string",
+                                                                "example": null
+                                                            },
+                                                            "length": {
+                                                                "type": "string",
+                                                                "example": null
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "patronus": {
+                                                        "type": "string",
+                                                        "example": null
+                                                    },
+                                                    "hogwartsStudent": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "hogwartsStaff": {
+                                                        "type": "integer",
+                                                        "example": 0
+                                                    },
+                                                    "actor": {
+                                                        "type": "string",
+                                                        "example": null
+                                                    },
+                                                    "alternate_actors": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "string"
+                                                        },
+                                                        "example": []
+                                                    },
+                                                    "alive": {
+                                                        "type": "boolean",
+                                                        "example": true
+                                                    },
+                                                    "image": {
+                                                        "type": "string",
+                                                        "example": null
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "example": "2024-05-22T07:25:52.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "example": "2024-05-22T07:25:52.000000Z"
+                                                    },
+                                                    "house": {
+                                                        "type": "string",
+                                                        "example": "Ravenclaw"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "first_page_url": {
+                                            "type": "string",
+                                            "example": "http://127.0.0.1:8000/api/student?page=1"
+                                        },
+                                        "from": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "last_page": {
+                                            "type": "integer",
+                                            "example": 9
+                                        },
+                                        "last_page_url": {
+                                            "type": "string",
+                                            "example": "http://127.0.0.1:8000/api/student?page=9"
+                                        },
+                                        "links": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "url": {
+                                                        "type": "string",
+                                                        "example": null
+                                                    },
+                                                    "label": {
+                                                        "type": "string",
+                                                        "example": "&laquo; Previous"
+                                                    },
+                                                    "active": {
+                                                        "type": "boolean",
+                                                        "example": false
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "next_page_url": {
+                                            "type": "string",
+                                            "example": "http://127.0.0.1:8000/api/student?page=2"
+                                        },
+                                        "path": {
+                                            "type": "string",
+                                            "example": "http://127.0.0.1:8000/api/student"
+                                        },
+                                        "per_page": {
+                                            "type": "integer",
+                                            "example": 12
+                                        },
+                                        "prev_page_url": {
+                                            "type": "string",
+                                            "example": null
+                                        },
+                                        "to": {
+                                            "type": "integer",
+                                            "example": 12
+                                        },
+                                        "total": {
+                                            "type": "integer",
+                                            "example": 101
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/student/{id}": {
+            "get": {
+                "tags": [
+                    "Students"
+                ],
+                "summary": "Obtiene un estudiante por su ID",
+                "description": "Retorna los detalles de un estudiante específico de Hogwarts por ID, incluyendo información completa del estudiante y la casa a la que pertenece.",
+                "operationId": "getStudentById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del estudiante",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operación exitosa",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "example": "00df1ced-262e-49d0-87a3-0c12113acec3"
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Stebbins"
+                                        },
+                                        "alternate_names": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "example": []
+                                        },
+                                        "species": {
+                                            "type": "string",
+                                            "example": "human"
+                                        },
+                                        "gender": {
+                                            "type": "string",
+                                            "example": "male"
+                                        },
+                                        "houseId": {
+                                            "type": "string",
+                                            "example": "f3393ae9-7234-4451-aa09-d190d069816a"
+                                        },
+                                        "dateOfBirth": {
+                                            "type": "string",
+                                            "example": null
+                                        },
+                                        "yearOfBirth": {
+                                            "type": "integer",
+                                            "example": null
+                                        },
+                                        "wizard": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "ancestry": {
+                                            "type": "string",
+                                            "example": null
+                                        },
+                                        "eyeColour": {
+                                            "type": "string",
+                                            "example": null
+                                        },
+                                        "hairColour": {
+                                            "type": "string",
+                                            "example": null
+                                        },
+                                        "wand": {
+                                            "properties": {
+                                                "wood": {
+                                                    "type": "string",
+                                                    "example": null
+                                                },
+                                                "core": {
+                                                    "type": "string",
+                                                    "example": null
+                                                },
+                                                "length": {
+                                                    "type": "string",
+                                                    "example": null
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "patronus": {
+                                            "type": "string",
+                                            "example": null
+                                        },
+                                        "hogwartsStudent": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "hogwartsStaff": {
+                                            "type": "integer",
+                                            "example": 0
+                                        },
+                                        "actor": {
+                                            "type": "string",
+                                            "example": null
+                                        },
+                                        "alternate_actors": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "example": []
+                                        },
+                                        "alive": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "image": {
+                                            "type": "string",
+                                            "example": null
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "example": "2024-05-22T07:25:52.000000Z"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "example": "2024-05-22T07:25:52.000000Z"
+                                        },
+                                        "house": {
+                                            "type": "string",
+                                            "example": "Ravenclaw"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Registro no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Message": {
+                                            "type": "string",
+                                            "example": "Registro no encontrado"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
