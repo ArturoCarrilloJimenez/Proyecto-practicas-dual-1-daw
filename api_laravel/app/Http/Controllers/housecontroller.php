@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class housecontroller extends Controller
 {
     /**
-     * Listado de todos los datos de las casas de Hogwarts.
+     * Listado de todos los datos de las casas de Hogwarts de forma paginnada.
      * @OA\Get(
      *     path="/api/houses",
      *     tags={"Houses"},
@@ -139,6 +139,64 @@ class housecontroller extends Controller
     }
 
     /**
+     * Listado de todos los datos de las casas de Hogwarts.
+     * 
+     * @OA\Get(
+     *     path="/api/allHouses",
+     *     tags={"Houses"},
+     *     summary="Obtener todas las casas de Hogwarts",
+     *     description="Devuelve un listado de todas las casas de Hogwarts con sus detalles.",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Un listado de todas las casas de Hogwarts.",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                         property="id",
+     *                         type="string",
+     *                         example="0763e821-09ea-4fc8-bac1-d8fc70c3e4b4"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="name",
+     *                         type="string",
+     *                         example="Hufflepuff"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="puntos",
+     *                         type="integer",
+     *                         example=24
+     *                     ),
+     *                     @OA\Property(
+     *                         property="image",
+     *                         type="string",
+     *                         example="https://i.pinimg.com/736x/39/80/92/398092891a39c67b1241734c5fea6843.jpg"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="created_at",
+     *                         type="string",
+     *                         format="date-time",
+     *                         example="2024-05-22T07:06:45.000000Z"
+     *                     ),
+     *                     @OA\Property(
+     *                         property="updated_at",
+     *                         type="string",
+     *                         format="date-time",
+     *                         example="2024-05-22T07:06:45.000000Z"
+     *                     )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Bad Request"
+     *     )
+     * )
+     */
+    public function getAllHouse()
+    {
+        return response()->json(house::get(), 200);
+    }
+
+    /**
      * @OA\Get(
      *     path="/api/house/{id}",
      *     tags={"Houses"},
@@ -168,50 +226,50 @@ class housecontroller extends Controller
      *                 type="array",
      *                 @OA\Items(
      *                     @OA\Property(
- *                 property="id",
- *                 type="string",
- *                 example="0763e821-09ea-4fc8-bac1-d8fc70c3e4b4"
- *             ),
- *             @OA\Property(
- *                 property="name",
- *                 type="string",
- *                 example="Hufflepuff"
- *             ),
- *             @OA\Property(
- *                 property="puntos",
- *                 type="integer",
- *                 example=24
- *             ),
- *             @OA\Property(
- *                 property="image",
- *                 type="string",
- *                 example="https://i.pinimg.com/736x/39/80/92/398092891a39c67b1241734c5fea6843.jpg"
- *             ),
- *             @OA\Property(
- *                 property="student",
- *                 type="string",
- *                 example="Hannah Abbott"
- *             ),
- *             @OA\Property(
- *                 property="studentImg",
- *                 type="string",
- *                 example=null
- *             ),
- *             @OA\Property(
- *                 property="studentId",
- *                 type="string",
- *                 example="0a9fe88e-7738-46a7-a8af-592598ce9475"
- *             ),
- *             @OA\Property(
- *                 property="created_at",
- *                 type="string",
- *                 example="2024-05-22T07:06:45.000000Z"
- *             ),
- *             @OA\Property(
- *                 property="updated_at",
- *                 type="string",
- *                 example="2024-05-22T07:06:45.000000Z"
- *             )
+     *                 property="id",
+     *                 type="string",
+     *                 example="0763e821-09ea-4fc8-bac1-d8fc70c3e4b4"
+     *             ),
+     *             @OA\Property(
+     *                 property="name",
+     *                 type="string",
+     *                 example="Hufflepuff"
+     *             ),
+     *             @OA\Property(
+     *                 property="puntos",
+     *                 type="integer",
+     *                 example=24
+     *             ),
+     *             @OA\Property(
+     *                 property="image",
+     *                 type="string",
+     *                 example="https://i.pinimg.com/736x/39/80/92/398092891a39c67b1241734c5fea6843.jpg"
+     *             ),
+     *             @OA\Property(
+     *                 property="student",
+     *                 type="string",
+     *                 example="Hannah Abbott"
+     *             ),
+     *             @OA\Property(
+     *                 property="studentImg",
+     *                 type="string",
+     *                 example=null
+     *             ),
+     *             @OA\Property(
+     *                 property="studentId",
+     *                 type="string",
+     *                 example="0a9fe88e-7738-46a7-a8af-592598ce9475"
+     *             ),
+     *             @OA\Property(
+     *                 property="created_at",
+     *                 type="string",
+     *                 example="2024-05-22T07:06:45.000000Z"
+     *             ),
+     *             @OA\Property(
+     *                 property="updated_at",
+     *                 type="string",
+     *                 example="2024-05-22T07:06:45.000000Z"
+     *             )
      *                 )
      *             ),
      *             @OA\Property(

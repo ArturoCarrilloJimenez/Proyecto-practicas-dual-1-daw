@@ -425,6 +425,11 @@ class studentscontroller extends Controller
         return response()->json(student::select('students.*', 'houses.name as house')->leftJoin('houses', 'students.houseId', '=', 'houses.id')->find($id), 200);
     }
 
+    public function getPersonxName($name)
+    {
+        return response()->json(student::select('students.*')->where('name', $name)->get(), 200);
+    }
+
     public function insertStudent(Request $request)
     {
         // Manejo para un solo estudiante, si es necesario

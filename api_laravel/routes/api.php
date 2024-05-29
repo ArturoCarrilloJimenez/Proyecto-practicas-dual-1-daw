@@ -30,6 +30,9 @@ Route::put('updateStudent/{id}','App\Http\Controllers\studentscontroller@updateS
 // Eliminar persona (estudiante o profesor)
 Route::delete('deletePerson/{id}','App\Http\Controllers\studentscontroller@deletePerson');
 
+// Busca una persona por nombre
+Route::get('person/{name}','App\Http\Controllers\studentscontroller@getPersonxName');
+
 // Metodos de profesor
 Route::get('staff', 'App\Http\Controllers\staffcontroller@getStaff');
 
@@ -41,6 +44,8 @@ Route::put('updateStaff/{id}','App\Http\Controllers\staffcontroller@updateStaff'
 
 // Metodos de casa
 Route::get('houses', 'App\Http\Controllers\housecontroller@getHouse');
+
+Route::get('allHouses', 'App\Http\Controllers\housecontroller@getAllHouse');
 
 Route::get('house/{id}','App\Http\Controllers\housecontroller@getHousexid');
 
