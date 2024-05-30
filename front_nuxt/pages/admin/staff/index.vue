@@ -36,7 +36,7 @@ function changeAdd() {
         <SpinnerCharge v-if="loading" class="col-span-3" />
         <section v-else class="text-center">
             <div class="flex items-center justify-center">
-                <h2 class="text-3xl font-bold">¡Administra los estudiantes!</h2>
+                <h2 class="text-3xl font-bold">¡Administra los profesores!</h2>
                 <button @click="changeAdd()" class="ml-3">
                     <AddIcon />
                 </button>
