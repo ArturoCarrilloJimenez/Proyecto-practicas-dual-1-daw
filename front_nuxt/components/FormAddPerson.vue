@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import {
-    useApi
-} from '~/composables/getData';
+import { useApi } from '~/composables/getData';
 import SpinnerCharge from './SpinnerCharge.vue';
+import Swal from "sweetalert2";
 
 const props = defineProps({
     tipo: {
@@ -64,12 +63,12 @@ async function submitForm() {
         formData.value.yearOfBirth = dateParts.length > 0 ? dateParts[0] : null;
     }
 
-    
+
     if (formData.value.errores.length == 0) {
         const { data, sendData } = useApi();
         const result = await sendData(`http://127.0.0.1:8000/api/${props.tipo}`, formData);
+        showAlert()
         loading.value = false;
-        console.log(result);
     } else {
         console.log("Errores en el formulario:", formData.value.errores);
     }
@@ -85,6 +84,14 @@ function clearString(text: string) {
     return text;
 }
 
+function showAlert() {
+    Swal.fire({
+        title: 'Persona Añadida!',
+        text: '¡La persona ha sido introducida correctamente!',
+        icon: 'success',
+        confirmButtonText: 'Volver'
+    });
+}
 </script>
 
 <template>

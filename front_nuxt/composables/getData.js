@@ -1,7 +1,6 @@
 import { ref } from "vue"
 
-export const
-  useApi = () => {
+export const useApi = () => {
     const data = ref(null);
     const loading = ref(false);
 
@@ -23,7 +22,6 @@ export const
     const sendData = async (url, postData) => {
       loading.value = true;
       try {
-        console.log(JSON.stringify(postData.value));
         const response = await fetch(url, {
           method: 'POST',
           headers: {
