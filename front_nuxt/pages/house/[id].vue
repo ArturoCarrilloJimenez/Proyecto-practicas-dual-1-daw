@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
 import { onMounted, computed } from 'vue';
-import { useGetData } from '~/composables/getData';
+import { 
+useApi } from '~/composables/getData';
 import SpinnerCharge from '~/components/SpinnerCharge.vue';
 
-const {data, getData, loading} = useGetData();
+const {data, getData, loading} = 
+useApi();
 
 const route = useRoute();
 const id = route.params.id;
@@ -15,12 +17,13 @@ onMounted(() => {
 });
 
 const activeBack = computed(() => {
-    return data?.prev_page_url == null;
+    return data.value?.prev_page_url == null;
 });
 
 const activeNext = computed(() => {
-    return data?.next_page_url == null;
+    return data.value?.next_page_url == null;
 });
+
 
 </script>
 

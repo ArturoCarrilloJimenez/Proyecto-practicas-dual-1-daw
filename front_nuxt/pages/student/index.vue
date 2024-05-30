@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import CardStudent from '../../components/CardStudent.vue';
 import { onMounted, computed } from 'vue';
-import { useGetData } from '~/composables/getData';
+import { 
+useApi } from '~/composables/getData';
 import SpinnerCharge from '~/components/SpinnerCharge.vue';
 
-const {data, getData, loading} = useGetData();
+const {data, getData, loading} = 
+useApi();
 
 onMounted(() => {
     getData('http://127.0.0.1:8000/api/student');
@@ -12,12 +14,14 @@ onMounted(() => {
 });
 
 const activeBack = computed(() => {
-    return data?.prev_page_url == null;
+    return data.value?.prev_page_url == null;
 });
 
 const activeNext = computed(() => {
-    return data?.next_page_url == null;
+    return data.value?.next_page_url == null;
 });
+
+
 </script>
 
 <template>

@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import { useGetData } from '~/composables/getData';
+import {
+    useApi
+} from '~/composables/getData';
+import SpinnerCharge from './SpinnerCharge.vue';
 
 const props = defineProps({
     tipo: {
@@ -9,7 +12,7 @@ const props = defineProps({
     }
 });
 
-const {data, getData, loading} = useGetData();
+const { data, getData, loading } = useApi();
 
 onMounted(() => {
     getData('http://127.0.0.1:8000/api/allHouses');
@@ -18,7 +21,7 @@ onMounted(() => {
 
 const formData = ref({
     name: '',
-    alternate_names: [],
+    alternate_names: [], // Se añadira despues
     houseId: '',
     species: '',
     gender: '',
@@ -37,36 +40,57 @@ const formData = ref({
     errores: []
 });
 
-function submitForm(formData) {
-    formData.errores = [];
+async function submitForm() {
+    loading.value = true;
+    formData.value.errores = [];
 
-    formData.name = clearString(formData.name);
-    formData.actor = clearString(formData.actor);
-    formData.image = clearString(formData.image);
+    formData.value.name = clearString(formData.value.name);
+    formData.value.actor = clearString(formData.value.actor);
+    formData.value.image = clearString(formData.value.image);
 
+    if (formData.value.name) {
+        const { data, getData } = useApi();
 
-    if (!formData.actor) {
-        formData.errores.push('No hay actor');
+        await getData(`http://127.0.0.1:8000/api/person/${formData.value.name}`);
+
+        if (data.value && data.value.length !== 0) {
+            formData.value.errores.push('La persona ya existe');
+        }
     }
 
-    if (formData.errores.length == 0) {
-        console.log("Formulario enviado con los siguientes datos:", formData);
+    if (formData.value.dateOfBirth) {
+        const dateParts = formData.value.dateOfBirth.split('-');
+        formData.value.dateOfBirth = dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0];
+        formData.value.yearOfBirth = dateParts.length > 0 ? dateParts[0] : null;
     }
+
+    
+    if (formData.value.errores.length == 0) {
+        const { data, sendData } = useApi();
+        const result = await sendData(`http://127.0.0.1:8000/api/${props.tipo}`, formData);
+        loading.value = false;
+        console.log(result);
+    } else {
+        console.log("Errores en el formulario:", formData.value.errores);
+    }
+    loading.value = false;
 }
 
-function clearString(text: String) {
+
+function clearString(text: string) {
     text = text.trim().replace(/\s+/g, " "); // Elimina espacios iniciales y finales, y reemplaza espacios seguidos con un solo espacio
     const parser = new DOMParser();
     const doc = parser.parseFromString(text, "text/html");
-    text = doc.body.textContent; // Elimina el código HTML
+    text = doc.body.textContent || text; // Elimina el código HTML
     return text;
 }
 
 </script>
 
 <template>
-    <div>
-        <form @submit.prevent="submitForm(formData)">
+    <SpinnerCharge v-if="loading" />
+    <div v-else>
+        <form @submit.prevent="submitForm()">
             <div class="mb-4">
                 <label for="nameStudent" class="block text-gray-700 font-bold mb-2">Nombre Completo<span
                         class="text-red-700">*</span></label>

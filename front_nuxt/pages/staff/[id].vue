@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
 import { onMounted, computed } from 'vue';
-import { useGetData } from '~/composables/getData';
+import { 
+useApi } from '~/composables/getData';
 import SpinnerCharge from '~/components/SpinnerCharge.vue';
 
-const {data, getData, loading} = useGetData();
+const {data, getData, loading} = 
+useApi();
 
 const route = useRoute();
 const id = route.params.id;

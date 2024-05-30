@@ -2,11 +2,11 @@
 import { ref } from 'vue';
 import CardAdmin from '~/components/CardAdmin.vue';
 import { onMounted, computed } from 'vue';
-import { useGetData } from '~/composables/getData';
+import { useApi } from '~/composables/getData';
 import SpinnerCharge from '~/components/SpinnerCharge.vue';
 import AddIcon from '~/components/icon/AddIcon.vue';
 
-const {data, getData, loading} = useGetData();
+const {data, getData, loading} = useApi();
 
 onMounted(() => {
     getData('http://127.0.0.1:8000/api/student');
@@ -14,12 +14,13 @@ onMounted(() => {
 });
 
 const activeBack = computed(() => {
-    return data?.prev_page_url == null;
+    return data.value?.prev_page_url == null;
 });
 
 const activeNext = computed(() => {
-    return data?.next_page_url == null;
+    return data.value?.next_page_url == null;
 });
+
 
 const addStudent = ref(false);
 
@@ -49,8 +50,8 @@ function changeAdd() {
                 </div>
             </div>
             <PaginateComponent :activeNext="activeNext" :activeBack="activeBack"
-                @next="useGetDataPinia.getData(data?.next_page_url)"
-                @back="useGetDataPinia.getData(data?.prev_page_url)" />
+                @next="getData(data?.next_page_url)"
+                @back="getData(data?.prev_page_url)" />
         </section>
     </main>
 </template>
