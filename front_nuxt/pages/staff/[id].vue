@@ -21,7 +21,7 @@ onMounted(() => {
 
 <template>
     <SpinnerCharge v-if="loading" />
-    <div v-else class="m-6">
+    <div v-else-if="data?.Message == undefined" class="m-6">
         <div class="text-center mb-6">
             <h1 class="text-3xl font-bold mb-2">{{ data?.name }}</h1>
             <p class="text-lg text-gray-600">{{ data?.house }}</p>
@@ -46,4 +46,5 @@ onMounted(() => {
             </div>
         </div>
     </div>
+    <Error404 v-else />
 </template>

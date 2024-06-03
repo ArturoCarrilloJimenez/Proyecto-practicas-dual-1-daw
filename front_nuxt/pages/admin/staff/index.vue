@@ -22,11 +22,11 @@ const activeNext = computed(() => {
 });
 
 
-const addStudent = ref(false);
+const addStaff = ref(false);
 
 function changeAdd() {
-    if (addStudent.value == false) addStudent.value = true
-    else addStudent.value = false
+    if (addStaff.value == false) addStaff.value = true
+    else addStaff.value = false
 };
 
 </script>
@@ -41,7 +41,7 @@ function changeAdd() {
                     <AddIcon />
                 </button>
             </div>
-            <div v-if="addStudent" class="mx-auto bg-white shadow-md rounded-lg p-6 mt-8">
+            <div v-if="addStaff" class="mx-auto bg-white shadow-md rounded-lg p-6 mt-8">
                 <FormAddPerson tipo="addStaff"/>
             </div>
             <div>

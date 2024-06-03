@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { onMounted, computed } from 'vue';
-import { 
-useApi } from '~/composables/getData';
+import { useApi } from '~/composables/getData';
 import SpinnerCharge from '~/components/SpinnerCharge.vue';
+import error404 from '~/components/Error404.vue';
 
-const {data, getData, loading} = 
-useApi();
+const {data, getData, loading} = useApi();
 
 const route = useRoute();
+const router = useRouter();
 const id = route.params.id;
 
 
@@ -21,7 +21,7 @@ onMounted(() => {
 
 <template>
     <SpinnerCharge v-if="loading" />
-    <div v-else class="m-6">
+    <div v-else-if="data?.Message == undefined" class="m-6">
         <div class="text-center mb-6">
             <h1 class="text-3xl font-bold mb-2">{{ data?.name }}</h1>
             <p class="text-lg text-gray-600">{{ data?.house }}</p>
@@ -46,4 +46,5 @@ onMounted(() => {
             </div>
         </div>
     </div>
+    <Error404 v-else />
 </template>

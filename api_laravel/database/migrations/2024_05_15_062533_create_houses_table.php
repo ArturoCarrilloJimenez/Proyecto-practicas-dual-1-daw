@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name')->unique();
             $table->integer('puntos')->unsigned();
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

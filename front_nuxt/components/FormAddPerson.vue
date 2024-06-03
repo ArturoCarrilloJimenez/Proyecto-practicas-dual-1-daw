@@ -67,7 +67,7 @@ async function submitForm() {
     if (formData.value.errores.length == 0) {
         const { data, sendData } = useApi();
         const result = await sendData(`http://127.0.0.1:8000/api/${props.tipo}`, formData);
-        showAlert()
+        showAlert();
         loading.value = false;
     } else {
         console.log("Errores en el formulario:", formData.value.errores);
