@@ -1,26 +1,16 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue';
 import CardAdmin from '~/components/CardAdmin.vue';
-import { useApi } from '~/composables/getData';
+import { useApi, useActivador } from '~/composables/getData';
 import SpinnerCharge from '~/components/SpinnerCharge.vue';
 import AddIcon from '~/components/icon/AddIcon.vue';
 import FormAddPerson from '~/components/FormAddPerson.vue'; // Asegúrate de importar correctamente el componente
 
 const { data, getData, loading } = useApi();
+const {formVisibility, toggleFormVisibility} = useActivador();
 
 onMounted(() => {
     getData('http://127.0.0.1:8000/api/student');
 });
-
-const formVisibility = ref({});
-
-function toggleFormVisibility(id) {
-    if (formVisibility.value[id]) {
-        formVisibility.value[id] = false;
-    } else {
-        formVisibility.value[id] = true;
-    }
-}
 
 const activeBack = computed(() => data.value?.prev_page_url === null);
 const activeNext = computed(() => data.value?.next_page_url === null);

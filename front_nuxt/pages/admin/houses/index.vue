@@ -8,6 +8,7 @@ import AddIcon from '~/components/icon/AddIcon.vue';
 import FormAddHouse from '~/components/FormAddHouse.vue';
 
 const {data, getData, loading} = useApi();
+const {formVisibility, toggleFormVisibility} = useActivador();
 
 onMounted(() => {
     getData('http://127.0.0.1:8000/api/houses');
@@ -21,14 +22,6 @@ const activeNext = computed(() => {
     return data.value?.next_page_url == null;
 });
 
-
-const addHouse = ref(false);
-
-function changeAdd() {
-    if (addHouse.value == false) addHouse.value = true
-    else addHouse.value = false
-};
-
 </script>
 
 <template>
@@ -37,17 +30,17 @@ function changeAdd() {
         <section v-else class="text-center">
             <div class="flex items-center justify-center">
                 <h2 class="text-3xl font-bold">¡Administra las Casas!</h2>
-                <button @click="changeAdd()" class="ml-3">
+                <button @click="toggleFormVisibility('new')" class="ml-3">
                     <AddIcon />
                 </button>
             </div>
-            <div v-if="addHouse" class="mx-auto bg-white shadow-md rounded-lg p-6 mt-8">
+            <div v-if="formVisibility['new']" class="mx-auto bg-white shadow-md rounded-lg p-6 mt-8">
                 <FormAddHouse tipo="addHouse"/>
             </div>
             <div>
                 <div v-for="{ name, image,  id } in data?.data" :key="id" class="w-full">
-                    <CardAdmin :name="name" :img="image" house="&nbsp;" :id="id" ruta="house" />
-                    <FormAddHouse tipo="updateHouse" :id="id" />
+                    <CardAdmin :name="name" :img="image" house="&nbsp;" :id="id" ruta="house" @edit="toggleFormVisibility(id)" />
+                    <FormAddHouse v-if="formVisibility[id]"tipo="updateHouse" :id="id" />
                 </div>
             </div>
             <PaginateComponent :activeNext="activeNext" :activeBack="activeBack"

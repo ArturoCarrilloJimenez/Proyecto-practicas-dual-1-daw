@@ -73,3 +73,20 @@ export const functionForm = () => {
     showAlert
   }
 }
+
+export const useActivador = () => {
+  const formVisibility = ref({});
+
+  function toggleFormVisibility(id) {
+    if (formVisibility.value[id]) {
+      formVisibility.value[id] = false;
+    } else {
+      formVisibility.value[id] = true;
+    }
+  }
+
+  return {
+    formVisibility,
+    toggleFormVisibility
+  }
+}
