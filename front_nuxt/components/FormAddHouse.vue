@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useApi, functionForm } from '~/composables/getData';
 import SpinnerCharge from './SpinnerCharge.vue';
+import { onMounted } from 'vue';
 
 const { data, getData, loading } = useApi();
 
@@ -8,6 +9,21 @@ const props = defineProps({
     tipo: {
         type: String,
         required: true
+    },
+    id: {
+        type: String,
+        default: null
+    }
+});
+
+let namexId = {}; // Se usa solo en caso de que se le alla pasado un id
+
+onMounted(async () => {
+    if (props.id !== null) {
+        const { data, getData } = useApi();
+        await getData(`http://127.0.0.1:8000/api/house/${props.id}`);
+        formData.value = data.value.data[0];
+        namexId.value = data.value.data[0].name;
     }
 });
 
@@ -19,7 +35,7 @@ const formData = ref({
 });
 
 async function submitForm() {
-    const {clearString, showAlert} = functionForm();
+    const { clearString, showAlert } = functionForm();
     loading.value = true;
     formData.value.errores = [];
 
@@ -31,14 +47,23 @@ async function submitForm() {
         await getData(`http://127.0.0.1:8000/api/houseName/${formData.value.name}`);
 
         if (data.value && data.value.length !== 0) {
-            formData.value.errores.push('La casa ya existe');
+            if ((namexId.value == null) || (formData.value.name !== namexId.value)) {
+                formData.value.errores.push('La casa ya existe');
+            }
         }
     }
 
     if (formData.value.errores.length == 0) {
         const { sendData } = useApi();
-        const result = await sendData(`http://127.0.0.1:8000/api/${props.tipo}`, formData, 'POST');
-        showAlert('Casa Añadida', '¡La casa ha sido introducida correctamente!');
+        let result = null;
+
+        if (props.id !== null) {
+            result = await sendData(`http://127.0.0.1:8000/api/${props.tipo}/${props.id}`, formData, 'PUT');
+            showAlert('Casa Actualizada', '¡La casa ha sido actaulizada correctamente!');
+        } else {
+            result = await sendData(`http://127.0.0.1:8000/api/${props.tipo}`, formData, 'POST');
+            showAlert('Casa Añadida', '¡La casa ha sido introducida correctamente!');
+        }
         loading.value = false;
     }
     loading.value = false;
@@ -59,7 +84,8 @@ async function submitForm() {
             <div class="mb-4">
                 <label for="puntosHouse" class="block text-gray-700 font-bold mb-2">Puntos<span
                         class="text-red-700">*</span></label>
-                <input type="number" name="puntos" id="puntosHouse" placeholder="Puntos" v-model="formData.puntos" min="0" step="1" required
+                <input type="number" name="puntos" id="puntosHouse" placeholder="Puntos" v-model="formData.puntos"
+                    min="0" step="1" required
                     class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
             </div>
             <div class="mb-4">
@@ -69,7 +95,7 @@ async function submitForm() {
             </div>
             <button type="submit"
                 class="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                Añadir
+                {{ (props.id !== null) ? 'Actualizar' : 'Añadir' }}
             </button>
         </form>
         <div class="bg-red-500 mt-2 rounded-lg text-white">

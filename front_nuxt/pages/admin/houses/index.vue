@@ -42,11 +42,12 @@ function changeAdd() {
                 </button>
             </div>
             <div v-if="addHouse" class="mx-auto bg-white shadow-md rounded-lg p-6 mt-8">
-                <FormAddHouse tipoStudent="addHouse"/>
+                <FormAddHouse tipo="addHouse"/>
             </div>
             <div>
                 <div v-for="{ name, image,  id } in data?.data" :key="id" class="w-full">
                     <CardAdmin :name="name" :img="image" house="&nbsp;" :id="id" ruta="house" />
+                    <FormAddHouse tipo="updateHouse" :id="id" />
                 </div>
             </div>
             <PaginateComponent :activeNext="activeNext" :activeBack="activeBack"
