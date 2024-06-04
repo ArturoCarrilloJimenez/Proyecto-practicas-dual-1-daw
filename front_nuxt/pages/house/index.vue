@@ -5,12 +5,10 @@ import {
 useApi } from '~/composables/getData';
 import SpinnerCharge from '~/components/SpinnerCharge.vue';
 
-const {data, getData, loading} = 
-useApi();
+const {data, getData, loading} = useApi();
 
 onMounted(() => {
     getData('http://127.0.0.1:8000/api/houses');
-    console.log(data);
 });
 
 const activeBack = computed(() => {

@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-import { useApi } from '~/composables/getData';
+import { useApi, functionForm } from '~/composables/getData';
 import SpinnerCharge from './SpinnerCharge.vue';
-import Swal from "sweetalert2";
 
 const { data, getData, loading } = useApi();
 
@@ -21,6 +19,7 @@ const formData = ref({
 });
 
 async function submitForm() {
+    const {clearString, showAlert} = functionForm();
     loading.value = true;
     formData.value.errores = [];
 
@@ -38,32 +37,13 @@ async function submitForm() {
 
     if (formData.value.errores.length == 0) {
         const { sendData } = useApi();
-        const result = await sendData(`http://127.0.0.1:8000/api/${props.tipo}`, formData);
-        showAlert()
+        const result = await sendData(`http://127.0.0.1:8000/api/${props.tipo}`, formData, 'POST');
+        showAlert('Casa Añadida', '¡La casa ha sido introducida correctamente!');
         loading.value = false;
-    } else {
-        console.log("Errores en el formulario:", formData.value.errores);
     }
     loading.value = false;
 }
 
-
-function clearString(text: string) {
-    text = text.trim().replace(/\s+/g, " "); // Elimina espacios iniciales y finales, y reemplaza espacios seguidos con un solo espacio
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(text, "text/html");
-    text = doc.body.textContent || text; // Elimina el código HTML
-    return text;
-}
-
-function showAlert() {
-    Swal.fire({
-        title: 'Casa Añadida!',
-        text: '¡La casa ha sido introducida correctamente!',
-        icon: 'success',
-        confirmButtonText: 'Volver'
-    });
-}
 </script>
 
 <template>

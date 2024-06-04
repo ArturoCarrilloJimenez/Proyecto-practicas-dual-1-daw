@@ -1,21 +1,33 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import { useApi } from '~/composables/getData';
+import { useApi, functionForm } from '~/composables/getData';
 import SpinnerCharge from './SpinnerCharge.vue';
-import Swal from "sweetalert2";
 
 const props = defineProps({
-    tipo: {
-        type: String,
+    tipoStudent: {
+        type: Boolean,
         required: true
+    },
+    id: {
+        type: String,
+        default: null
     }
 });
 
 const { data, getData, loading } = useApi();
 
-onMounted(() => {
+let namexId = {}; // Se usa solo en caso de que se le alla pasado un id
+
+onMounted(async () => {
+    if (props.id !== null) { 
+        const { data, getData } = useApi();
+        await getData(`http://127.0.0.1:8000/api/${props.tipoStudent ? 'student' : 'staff'}/${props.id}`);
+
+        namexId.value = data.value.name; // Asigna el valor del nombre desde los datos obtenidos
+        formData.value = data.value;
+        
+    }
     getData('http://127.0.0.1:8000/api/allHouses');
-    console.log(data);
 });
 
 const formData = ref({
@@ -40,6 +52,8 @@ const formData = ref({
 });
 
 async function submitForm() {
+    const { clearString, showAlert } = functionForm();
+
     loading.value = true;
     formData.value.errores = [];
 
@@ -53,7 +67,9 @@ async function submitForm() {
         await getData(`http://127.0.0.1:8000/api/person/${formData.value.name}`);
 
         if (data.value && data.value.length !== 0) {
-            formData.value.errores.push('La persona ya existe');
+            if ((namexId.value == null) || (formData.value.name !== namexId.value)) {
+                formData.value.errores.push('La persona ya existe');
+            }
         }
     }
 
@@ -66,32 +82,24 @@ async function submitForm() {
 
     if (formData.value.errores.length == 0) {
         const { data, sendData } = useApi();
-        const result = await sendData(`http://127.0.0.1:8000/api/${props.tipo}`, formData);
-        showAlert();
+
+        let result = null;
+
+        if (props.id !== null) {
+            result = await sendData(`http://127.0.0.1:8000/api/${props.tipoStudent ? 'updateStudent' : 'updateStaff'}/${props.id}`, formData, 'PUT');
+            showAlert('Persona Actualizada', '¡La persona ha sido actualizada correctamente!');
+        } else {
+            result = await sendData(`http://127.0.0.1:8000/api/${props.tipoStudent ? 'addStudent' : 'addStaff'}`, formData, 'POST');
+            showAlert('Persona Añadida', '¡La persona ha sido introducida correctamente!');
+        }
+
         loading.value = false;
-    } else {
-        console.log("Errores en el formulario:", formData.value.errores);
     }
     loading.value = false;
 }
 
 
-function clearString(text: string) {
-    text = text.trim().replace(/\s+/g, " "); // Elimina espacios iniciales y finales, y reemplaza espacios seguidos con un solo espacio
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(text, "text/html");
-    text = doc.body.textContent || text; // Elimina el código HTML
-    return text;
-}
 
-function showAlert() {
-    Swal.fire({
-        title: 'Persona Añadida!',
-        text: '¡La persona ha sido introducida correctamente!',
-        icon: 'success',
-        confirmButtonText: 'Volver'
-    });
-}
 </script>
 
 <template>
@@ -159,7 +167,7 @@ function showAlert() {
             </div>
             <button type="submit"
                 class="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                Añadir
+                {{ (props.id !== null) ? 'Actualizar' : 'Añadir' }}
             </button>
         </form>
         <div class="bg-red-500 mt-2 rounded-lg text-white">

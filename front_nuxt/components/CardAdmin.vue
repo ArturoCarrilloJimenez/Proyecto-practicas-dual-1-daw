@@ -11,6 +11,7 @@ defineProps({
   house: String
 });
 
+const emit = defineEmits(['edit']);
 </script>
 
 <template>
@@ -25,8 +26,8 @@ defineProps({
         </div>
       </div>
       <div class="flex items-center space-x-4">
-        <button @click="">
-          <EditIcon/>
+        <button @click="emit('edit')">
+          <EditIcon />
         </button>
         <button @click="">
           <DeleteIcon />

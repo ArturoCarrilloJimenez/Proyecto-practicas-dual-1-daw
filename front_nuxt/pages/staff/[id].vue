@@ -14,7 +14,6 @@ const id = route.params.id;
 
 onMounted(() => {
     getData(`http://127.0.0.1:8000/api/staff/${id}`);
-    console.log(data);
 });
 
 </script>

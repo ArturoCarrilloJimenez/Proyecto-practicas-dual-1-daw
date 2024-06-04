@@ -427,7 +427,7 @@ class studentscontroller extends Controller
 
     public function getPersonxName($name)
     {
-        return response()->json(student::select('students.*')->where('name', $name)->get(), 200);
+        return response()->json(student::where('name', $name)->get(), 200);
     }
 
     public function insertStudent(Request $request)

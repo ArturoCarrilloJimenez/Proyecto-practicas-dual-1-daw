@@ -11,7 +11,6 @@ const {data, getData, loading} = useApi();
 
 onMounted(() => {
     getData('http://127.0.0.1:8000/api/houses');
-    console.log(data);
 });
 
 const activeBack = computed(() => {
@@ -43,7 +42,7 @@ function changeAdd() {
                 </button>
             </div>
             <div v-if="addHouse" class="mx-auto bg-white shadow-md rounded-lg p-6 mt-8">
-                <FormAddHouse tipo="addHouse"/>
+                <FormAddHouse tipoStudent="addHouse"/>
             </div>
             <div>
                 <div v-for="{ name, image,  id } in data?.data" :key="id" class="w-full">
