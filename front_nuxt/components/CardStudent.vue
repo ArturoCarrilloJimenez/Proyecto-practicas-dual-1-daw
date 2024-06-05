@@ -1,3 +1,4 @@
+<!-- Componente que mustra los datos de un registro en el menu de visualizacion -->
 <script setup>
 
 defineProps({

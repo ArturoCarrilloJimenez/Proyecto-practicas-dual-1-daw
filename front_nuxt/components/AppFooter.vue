@@ -1,3 +1,4 @@
+<!-- Componente que se encarga de el pie de pagina -->
 <template>
   <footer class="bg-blue-900 text-white py-4 mt-10">
     <div class="flex flex-col items-center">

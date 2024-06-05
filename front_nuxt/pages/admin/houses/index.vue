@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from 'vue';
 import CardAdmin from '~/components/CardAdmin.vue';
 import { onMounted, computed } from 'vue';
 import { useApi } from '~/composables/getData';

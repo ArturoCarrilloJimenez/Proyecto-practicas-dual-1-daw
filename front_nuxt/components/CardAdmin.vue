@@ -1,3 +1,4 @@
+<!-- Componente que mustra los datos de un registro en el menu de administracion -->
 <script setup>
 import DeleteIcon from './icon/DeleteIcon.vue';
 import EditIcon from './icon/EditIcon.vue';
@@ -11,7 +12,7 @@ defineProps({
   house: String
 });
 
-const emit = defineEmits(['edit']);
+const emit = defineEmits(['edit', 'delete']);
 </script>
 
 <template>
@@ -29,7 +30,7 @@ const emit = defineEmits(['edit']);
         <button @click="emit('edit')">
           <EditIcon />
         </button>
-        <button @click="">
+        <button @click="emit('delete')">
           <DeleteIcon />
         </button>
       </div>

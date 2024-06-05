@@ -430,6 +430,7 @@ class studentscontroller extends Controller
         return response()->json(student::where('name', $name)->get(), 200);
     }
 
+    // Funcion para insertar un estudiante
     public function insertStudent(Request $request)
     {
         // Manejo para un solo estudiante, si es necesario
@@ -455,6 +456,7 @@ class studentscontroller extends Controller
         return response()->json($students, 200);
     }
 
+    // Funcion para actualizar un profesor
     public function updateStudent(Request $request, $id)
     {
         $categoria = student::where('hogwartsStudent', true)->find($id);
@@ -467,9 +469,10 @@ class studentscontroller extends Controller
         return response($categoria, 200);
     }
 
+    // Funcion para eliminar una persona
     public function deletePerson($id)
     {
-        $categoria = student::where('hogwartsStudent', true)->find($id);
+        $categoria = student::find($id);
         if (!$categoria) {
             return response()->json(['Message' => 'Registro no encontrado'], 404);
         }

@@ -393,6 +393,7 @@ class housecontroller extends Controller
         return response()->json($house, 200);
     }
 
+    // Funcion que actualiza la casa
     public function updateHouse(Request $request, $id)
     {
         $categoria = house::find($id);
@@ -403,6 +404,7 @@ class housecontroller extends Controller
         return response($categoria, 200);
     }
 
+    // Funcion que elimina una casa
     public function deletehouse($id)
     {
         $categoria = house::find($id);

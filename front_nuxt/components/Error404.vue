@@ -1,3 +1,4 @@
+<!-- Componete que se mustra cuando la pagina no se encuentra -->
 <template>
     <div class="flex items-center justify-center h-screen">
         <div class="text-center">

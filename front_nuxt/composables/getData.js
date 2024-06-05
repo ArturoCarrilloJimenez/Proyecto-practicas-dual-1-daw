@@ -22,15 +22,19 @@ export const useApi = () => {
   const sendData = async (url, postData, method) => {
     loading.value = true;
     try {
-      const response = await fetch(url, {
+      const options = {
         method: method,
         headers: {
           'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(postData.value)
-
-      });
-
+        }
+      };
+  
+      // Añade el cuerpo solo si el método es POST o PUT
+      if (method === 'POST' || method === 'PUT') {
+        options.body = JSON.stringify(postData.value);
+      }
+  
+      const response = await fetch(url, options);
       const responseData = await response.json();
       return responseData;
     } catch (e) {
@@ -39,6 +43,7 @@ export const useApi = () => {
       loading.value = false;
     }
   };
+  
 
   return {
     loading,
@@ -68,9 +73,35 @@ export const functionForm = () => {
     });
   }
 
+  const alertConfirm = (title, text, button, title2, text2) => {
+    return new Promise((resolve) => {
+      Swal.fire({
+        title: title,
+        text: text,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: button
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: title2,
+            text: text2,
+            icon: "success"
+          });
+          resolve(true);
+        } else {
+          resolve(false);
+        }
+      });
+    });
+  };
+
   return {
     clearString,
-    showAlert
+    showAlert,
+    alertConfirm,
   }
 }
 

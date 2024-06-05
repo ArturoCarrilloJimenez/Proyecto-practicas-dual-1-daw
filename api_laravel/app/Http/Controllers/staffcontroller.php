@@ -442,6 +442,7 @@ class staffcontroller extends Controller
         return response()->json($students, 200);
     }
 
+    // Funcion que actualiza un prrofesor
     public function updateStaff(Request $request, $id)
     {
         $categoria = student::where('hogwartsStaff', true)->find($id);

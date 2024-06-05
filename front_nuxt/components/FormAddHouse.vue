@@ -1,3 +1,4 @@
+<!-- Formulario para añadir y actualizar casas -->
 <script setup lang="ts">
 import { useApi, functionForm } from '~/composables/getData';
 import SpinnerCharge from './SpinnerCharge.vue';
@@ -18,6 +19,7 @@ const props = defineProps({
 
 let namexId = {}; // Se usa solo en caso de que se le alla pasado un id
 
+// En caso de aver pasado id cargo los datos del registro
 onMounted(async () => {
     if (props.id !== null) {
         const { data, getData } = useApi();
@@ -27,6 +29,7 @@ onMounted(async () => {
     }
 });
 
+// Datos que necesitamos y modificaremos
 const formData = ref({
     name: '',
     puntos: null,
@@ -34,14 +37,17 @@ const formData = ref({
     errores: []
 });
 
+// Metodo para enviar o actualizar un registro
 async function submitForm() {
     const { clearString, showAlert } = functionForm();
     loading.value = true;
     formData.value.errores = [];
 
+    // Limpiamos el texto de posibles errores y codigo html
     formData.value.name = clearString(formData.value.name);
     formData.value.image = clearString(formData.value.image);
 
+    // Comprobamos que el nombre no exista anteriormente
     if (formData.value.name) {
 
         await getData(`http://127.0.0.1:8000/api/houseName/${formData.value.name}`);
@@ -53,14 +59,15 @@ async function submitForm() {
         }
     }
 
+    // Si no hay errores lo mandamos a la api
     if (formData.value.errores.length == 0) {
         const { sendData } = useApi();
         let result = null;
 
-        if (props.id !== null) {
+        if (props.id !== null) { // Actalizar
             result = await sendData(`http://127.0.0.1:8000/api/${props.tipo}/${props.id}`, formData, 'PUT');
             showAlert('Casa Actualizada', '¡La casa ha sido actaulizada correctamente!');
-        } else {
+        } else { // Añadir
             result = await sendData(`http://127.0.0.1:8000/api/${props.tipo}`, formData, 'POST');
             showAlert('Casa Añadida', '¡La casa ha sido introducida correctamente!');
         }
