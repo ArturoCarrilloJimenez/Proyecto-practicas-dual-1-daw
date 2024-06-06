@@ -1,15 +1,16 @@
 <script setup lang="ts">
-import CardStudent from '../../components/CardStudent.vue';
+import CardStudent from '../../components/card/CardStudent.vue';
+import { getRutePinia } from '~/stores/getRutePinia';
 import { onMounted, computed } from 'vue';
-import { 
-useApi } from '~/composables/getData';
+import { useApi } from '~/composables/getData';
 import SpinnerCharge from '~/components/SpinnerCharge.vue';
 
-const {data, getData, loading} = 
-useApi();
+const getRoute = getRutePinia();
+const { data, getData, loading } = useApi();
 
 onMounted(() => {
-    getData('http://127.0.0.1:8000/api/student');
+    getRoute.updateUrl();
+    getData('student');
 });
 
 const activeBack = computed(() => {
@@ -31,11 +32,10 @@ const activeNext = computed(() => {
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 justify-items-center">
                 <div v-for="{ name, image, house, id } in data?.data" :key="id"
                     class="max-w-sm rounded overflow-hidden shadow-lg">
-                    <CardStudent :name="name" :img="image" :house="house" :id="id" ruta="student"/>
+                    <CardStudent :name="name" :img="image" :house="house" :id="id" ruta="student" />
                 </div>
             </div>
-            <PaginateComponent :activeNext="activeNext" :activeBack="activeBack"
-                @next="getData(data?.next_page_url)"
+            <PaginateComponent :activeNext="activeNext" :activeBack="activeBack" @next="getData(data?.next_page_url)"
                 @back="getData(data?.prev_page_url)" />
         </section>
     </main>

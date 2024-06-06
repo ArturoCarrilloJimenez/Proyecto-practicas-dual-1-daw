@@ -1,18 +1,19 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
 import { onMounted, computed } from 'vue';
-import { 
-useApi } from '~/composables/getData';
+import { getRutePinia } from '~/stores/getRutePinia';
+import { useApi } from '~/composables/getData';
 import SpinnerCharge from '~/components/SpinnerCharge.vue';
 
-const {data, getData, loading} = 
-useApi();
+const getRoute = getRutePinia();
+const {data, getData, loading} = useApi();
 
 const route = useRoute();
 const id = route.params.id;
 
 onMounted(() => {
-    getData(`http://127.0.0.1:8000/api/house/${id}`);
+    getRoute.updateUrl();
+    getData(`house/${id}`);
 });
 
 const activeBack = computed(() => {

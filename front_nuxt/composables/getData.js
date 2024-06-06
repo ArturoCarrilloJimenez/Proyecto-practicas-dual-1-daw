@@ -1,15 +1,22 @@
 import { ref } from "vue"
 import Swal from "sweetalert2";
 
+const URL_API = 'http://127.0.0.1:8000/api/';
+
+// Funciones para usar la api
 export const useApi = () => {
   const data = ref(null);
   const loading = ref(false);
 
-  // Funcion para optener datos
+  // Funcion para optener datos (Solo vale para optener datos)
   const getData = async (url) => {
+
+    // Elimina la url fija en caso de que aparezca en el texto
+    url = url.replace(new RegExp(URL_API, 'g'), '');
+
     loading.value = true;
     try {
-      const response = await fetch(url);
+      const response = await fetch(URL_API + url);
       data.value = await response.json();
     } catch (e) {
       console.error(e);
@@ -18,7 +25,7 @@ export const useApi = () => {
     }
   }
 
-  // Función para enviar datos a la API
+  // Función para enviar datos a la API (Este vale para todos los metodos)
   const sendData = async (url, postData, method) => {
     loading.value = true;
     try {
@@ -34,7 +41,7 @@ export const useApi = () => {
         options.body = JSON.stringify(postData.value);
       }
   
-      const response = await fetch(url, options);
+      const response = await fetch(URL_API + url, options);
       const responseData = await response.json();
       return responseData;
     } catch (e) {
@@ -53,7 +60,9 @@ export const useApi = () => {
   }
 }
 
+// Funciones relacionadas con formularios y alertas
 export const functionForm = () => {
+  // Limpia el texto de posibles errores y de codigo html
   function clearString(text) {
     if (text !== null) {
       text = text.trim().replace(/\s+/g, " "); // Elimina espacios iniciales y finales, y reemplaza espacios seguidos con un solo espacio
@@ -64,6 +73,7 @@ export const functionForm = () => {
     return text;
   }
 
+  // Alerta de confirmacion
   function showAlert(title, text) {
     Swal.fire({
       title: title,
@@ -73,6 +83,7 @@ export const functionForm = () => {
     });
   }
 
+  // Alerta de confirmacion
   const alertConfirm = (title, text, button, title2, text2) => {
     return new Promise((resolve) => {
       Swal.fire({
@@ -85,11 +96,7 @@ export const functionForm = () => {
         confirmButtonText: button
       }).then((result) => {
         if (result.isConfirmed) {
-          Swal.fire({
-            title: title2,
-            text: text2,
-            icon: "success"
-          });
+          showAlert(title2, text2)
           resolve(true);
         } else {
           resolve(false);
@@ -105,15 +112,21 @@ export const functionForm = () => {
   }
 }
 
+// Activadores
 export const useActivador = () => {
   const formVisibility = ref({});
 
+  // Busca la variable con el id y la activa o desactiva
   function toggleFormVisibility(id) {
-    if (formVisibility.value[id]) {
-      formVisibility.value[id] = false;
-    } else {
-      formVisibility.value[id] = true;
+    // Guarda el estado del que contiene el id
+    const wasVisible = formVisibility.value[id];
+
+    for (let key in formVisibility.value) {
+      formVisibility.value[key] = false;
     }
+
+    // Alterna el estado del que queremos activar o no
+    formVisibility.value[id] = !wasVisible;
   }
 
   return {

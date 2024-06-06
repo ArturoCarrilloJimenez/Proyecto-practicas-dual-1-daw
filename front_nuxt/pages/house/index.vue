@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import CardStudent from '../../components/CardStudent.vue';
+import CardStudent from '../../components/card/CardStudent.vue';
 import { onMounted, computed } from 'vue';
-import { 
-useApi } from '~/composables/getData';
+import { getRutePinia } from '~/stores/getRutePinia';
+import { useApi } from '~/composables/getData';
 import SpinnerCharge from '~/components/SpinnerCharge.vue';
 
+const getRoute = getRutePinia();
 const {data, getData, loading} = useApi();
 
 onMounted(() => {
-    getData('http://127.0.0.1:8000/api/houses');
+    getRoute.updateUrl();
+    getData('houses');
 });
 
 const activeBack = computed(() => {

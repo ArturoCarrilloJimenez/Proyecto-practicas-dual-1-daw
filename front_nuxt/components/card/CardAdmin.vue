@@ -1,7 +1,7 @@
 <!-- Componente que mustra los datos de un registro en el menu de administracion -->
 <script setup>
-import DeleteIcon from './icon/DeleteIcon.vue';
-import EditIcon from './icon/EditIcon.vue';
+import DeleteIcon from '../icon/DeleteIcon.vue';
+import EditIcon from '../icon/EditIcon.vue';
 
 
 defineProps({

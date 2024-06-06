@@ -1,25 +1,40 @@
 <script setup>
-import CardAdmin from '~/components/CardAdmin.vue';
 import { onMounted, computed } from 'vue';
-import { useApi } from '~/composables/getData';
+import { getRutePinia } from '~/stores/getRutePinia';
+import { useApi, functionForm } from '~/composables/getData';
+import CardAdmin from '~/components/card/CardAdmin.vue';
 import SpinnerCharge from '~/components/SpinnerCharge.vue';
 import AddIcon from '~/components/icon/AddIcon.vue';
-import FormAddHouse from '~/components/FormAddHouse.vue';
+import FormAddHouse from '~/components/form/FormAddHouse.vue';
 
-const {data, getData, loading} = useApi();
+const getRoute = getRutePinia();
+const {data, getData, loading, sendData} = useApi();
 const {formVisibility, toggleFormVisibility} = useActivador();
+const {alertConfirm} = functionForm()
 
 onMounted(() => {
-    getData('http://127.0.0.1:8000/api/houses');
+    getRoute.updateUrl();
+    getData('houses');
 });
 
-const activeBack = computed(() => {
-    return data.value?.prev_page_url == null;
-});
+const activeBack = computed(() => data.value?.prev_page_url == null);
 
-const activeNext = computed(() => {
-    return data.value?.next_page_url == null;
-});
+const activeNext = computed(() => data.value?.next_page_url == null);
+
+const getPage = computed(() => data.value?.current_page);
+
+const refrescPage = () => {
+    getData(`houses?page=${getPage.value}`)
+}
+
+const deleteHouse = async (id) => {
+    const confirm = await alertConfirm('Eliminar casa', 'Deseas eliminarla casa, esta funcion lo elimina permanentemente', 'Eliminar', 'Casa eliminado', 'La casa ha sido eliminado correctamente');
+
+    if (confirm) {
+        await sendData(`deleteHouse/${id}`, '', 'DELETE');
+        refrescPage();
+    }
+}
 
 </script>
 
@@ -34,12 +49,12 @@ const activeNext = computed(() => {
                 </button>
             </div>
             <div v-if="formVisibility['new']" class="mx-auto bg-white shadow-md rounded-lg p-6 mt-8">
-                <FormAddHouse tipo="addHouse"/>
+                <FormAddHouse tipo="addHouse" @refresc="refrescPage()"/>
             </div>
             <div>
                 <div v-for="{ name, image,  id } in data?.data" :key="id" class="w-full">
-                    <CardAdmin :name="name" :img="image" house="&nbsp;" :id="id" ruta="house" @edit="toggleFormVisibility(id)" />
-                    <FormAddHouse v-if="formVisibility[id]"tipo="updateHouse" :id="id" />
+                    <CardAdmin :name="name" :img="image" house="&nbsp;" :id="id" ruta="house" @edit="toggleFormVisibility(id)" @delete="deleteHouse(id)" />
+                    <FormAddHouse v-if="formVisibility[id]"tipo="updateHouse" :id="id" @refresc="refrescPage()" />
                 </div>
             </div>
             <PaginateComponent :activeNext="activeNext" :activeBack="activeBack"

@@ -1,19 +1,21 @@
 <script setup lang="ts">
-import { useRoute, useRouter } from 'vue-router';
-import { onMounted, computed } from 'vue';
+import { useRoute } from 'vue-router';
+import { onMounted } from 'vue';
+import { getRutePinia } from '~/stores/getRutePinia';
 import { useApi } from '~/composables/getData';
 import SpinnerCharge from '~/components/SpinnerCharge.vue';
 import error404 from '~/components/Error404.vue';
 
+const getRoute = getRutePinia();
 const {data, getData, loading} = useApi();
 
 const route = useRoute();
-const router = useRouter();
 const id = route.params.id;
 
 
 onMounted(() => {
-    getData(`http://127.0.0.1:8000/api/student/${id}`);
+    getRoute.updateUrl();
+    getData(`student/${id}`);
 });
 
 </script>
